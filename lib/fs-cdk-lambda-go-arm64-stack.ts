@@ -1,4 +1,4 @@
-import { AssetHashType, Stack, StackProps } from 'aws-cdk-lib';
+import { AssetHashType, AssetStaging, Stack, StackProps } from 'aws-cdk-lib';
 import { Architecture, Code, Function, FunctionProps, FunctionUrlAuthType, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { execSync } from 'child_process';
 import { Construct } from 'constructs';
@@ -15,7 +15,6 @@ export class FsCdkLambdaGoArm64Stack extends Stack {
             code: Code.fromAsset(path.join(__dirname, '..', 'lambda'), {
                 assetHashType: AssetHashType.OUTPUT,
                 bundling: {
-                    image: Runtime.GO_1_X.bundlingImage,
                     local: {
                         tryBundle(outputDir: string): boolean {
                             try {
@@ -41,6 +40,16 @@ export class FsCdkLambdaGoArm64Stack extends Stack {
                             return true;
                         },
                     },
+                    image: Runtime.GO_1_X.bundlingImage,
+                    command: [
+                        'bash',
+                        '-c',
+                        `GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o ${path.join(
+                            AssetStaging.BUNDLING_OUTPUT_DIR,
+                            handler
+                        )}`,
+                    ],
+                    user: 'root',
                 },
             }),
             architecture: Architecture.ARM_64,
