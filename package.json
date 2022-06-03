@@ -1,0 +1,37 @@
+{
+    "name": "fs-cdk-lambda-go-arm64",
+    "version": "0.1.0",
+    "license": "UNLICENSED",
+    "private": true,
+    "bin": {
+        "fs-cdk-lambda-go-arm64": "bin/fs-cdk-lambda-go-arm64.js"
+    },
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w",
+        "format": "prettier --write './**/*.{ts,js,json}'",
+        "test": "jest",
+        "cdk": "cdk",
+        "synth": "cdk synth",
+        "clean": "rm -rf cdk.out",
+        "bootstrap": "cdk bootstrap --profile=cdk",
+        "deploy": "cdk deploy --profile=cdk",
+        "destroy": "cdk destroy --profile=cdk"
+    },
+    "devDependencies": {
+        "@types/jest": "^27.5.0",
+        "@types/node": "10.17.27",
+        "@types/prettier": "2.6.0",
+        "aws-cdk": "2.27.0",
+        "jest": "^27.5.1",
+        "prettier": "^2.6.2",
+        "ts-jest": "^27.1.4",
+        "ts-node": "^10.7.0",
+        "typescript": "~3.9.7"
+    },
+    "dependencies": {
+        "aws-cdk-lib": "2.27.0",
+        "constructs": "^10.0.0",
+        "source-map-support": "^0.5.21"
+    }
+}
